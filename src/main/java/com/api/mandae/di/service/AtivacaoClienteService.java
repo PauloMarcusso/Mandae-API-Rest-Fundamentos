@@ -6,23 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.api.mandae.di.modelo.Cliente;
+import com.api.mandae.di.notificacao.NivelUrgencia;
 import com.api.mandae.di.notificacao.Notificador;
+import com.api.mandae.di.notificacao.TipoDoNotificador;
 
 @Component
 public class AtivacaoClienteService {
 
+	@TipoDoNotificador(NivelUrgencia.SEM_URGENCIA)
 	@Autowired
-	private List<Notificador> notificadores;
-	
-//	public AtivacaoClienteService(Notificador notificador) {
-//		this.notificador = notificador;
-//	}
+	private Notificador notificador;
 
 	public void ativar(Cliente cliente) {
 		cliente.ativar();
-		for (Notificador notificador : notificadores) {
-			
-			notificador.notificar(cliente, "Seu cadastro no sistema está ativo");
-		}
+
+		notificador.notificar(cliente, "Seu cadastro no sistema está ativo");
 	}
 }

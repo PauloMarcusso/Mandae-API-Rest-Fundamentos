@@ -1,36 +1,20 @@
 package com.api.mandae.di.service;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
 import com.api.mandae.di.modelo.Cliente;
-import com.api.mandae.di.notificacao.NivelUrgencia;
-import com.api.mandae.di.notificacao.Notificador;
-import com.api.mandae.di.notificacao.TipoDoNotificador;
 
 @Component
 public class AtivacaoClienteService {
 
-	@TipoDoNotificador(NivelUrgencia.SEM_URGENCIA)
 	@Autowired
-	private Notificador notificador;
+	private ApplicationEventPublisher eventPublisher;
 	
-	@PostConstruct
-	public void init() {
-		System.out.println("INIT" + notificador);
-	}
-	
-	@PreDestroy
-	public void destroy() {
-		System.out.println("DESTROY");
-	}
-
 	public void ativar(Cliente cliente) {
 		cliente.ativar();
-
-		notificador.notificar(cliente, "Seu cadastro no sistema está ativo");
+		
+		eventPublisher.publishEvent(new ClienteAtivadoEvento(cliente));
 	}
 }

@@ -1,12 +1,9 @@
 package com.api.mandae.di.notificacao;
 
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import com.api.mandae.di.modelo.Cliente;
 
-@Profile("dev")
-@TipoDoNotificador(NivelUrgencia.SEM_URGENCIA)
 @Component
 public class NotificadorEmailMock implements Notificador {
 

@@ -12,8 +12,8 @@ import com.api.mandae.di.service.ClienteAtivadoEvento;
 @Component
 public class NotificacaoService {
 	
-	@TipoDoNotificador(NivelUrgencia.SEM_URGENCIA)
 	@Autowired
+	@TipoDoNotificador(NivelUrgencia.SEM_URGENCIA)
 	private Notificador notificador;
 
 	@EventListener
